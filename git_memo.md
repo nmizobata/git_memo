@@ -10,3 +10,4 @@ git rm aaa.txt : aaa.txtのファイル削除と同時にgit管理からも外�
 git rm -r directory : directoryとそれ以下のファイルを削除すると同時にgit管理からも外す
 
 ## .gitignore
+.gitignoreの記入例: https://github.com/github/gitignore
