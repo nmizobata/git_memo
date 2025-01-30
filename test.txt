@@ -1,3 +1,24 @@
-こんにちは
+- test.txt: テキストなし。
 
-この編集はtestブランチでコミットします。
+[master]
+testブランチを作成。
+- test.txt:編集/ステージング
+testブランチへ移動しようとするがabortされる
+masterブランチでコミット
+testブランチへ移動。
+
+[test]
+- test.txt： テキストなし状態
+masterブランチへ移動
+
+[master]
+- text.txt: 編集済のテキストが戻る
+test2ブランチを作成
+test2ブランチへ移動→可能
+
+[test2]
+masterブランチへ移動
+
+[master]
+
+
