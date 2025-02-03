@@ -116,3 +116,4 @@ Add SSH keyを押す
 - "/"で検索。https://help.github.com/articles/searching-for-repositories/を参照。
 - stars :>= 10000 でStarが10000個以上のリポジトリ。
 - starts:>=10000 language:pythonでpython言語の検索。
+- ReadMEファイルにおけるMarkDownの記法。http://guides.github.com/features/mastering-markdown/
