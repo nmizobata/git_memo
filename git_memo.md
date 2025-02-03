@@ -110,3 +110,9 @@ Add SSH keyを押す
 - コンフリクトが発生しているファイルを確認し、vscoldeで編集。その際、gitが付加したコンフリクトマークも消すこと。
 - 編集完了後、ステージング > コミット、でコンフリクトが解消した形でマージ完了。
 - GitHubへプッシュ。(GitHubで表示されていたConflictメッセージも解消されている)
+
+## オープンソフトウェアの世界
+### 検索方法
+- "/"で検索。https://help.github.com/articles/searching-for-repositories/を参照。
+- stars :>= 10000 でStarが10000個以上のリポジトリ。
+- starts:>=10000 language:pythonでpython言語の検索。
