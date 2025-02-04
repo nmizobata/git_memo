@@ -1,30 +1,31 @@
 # Git学習メモ
 ## Gitコマンド
-git config --global user.name mizobata
-git config --global user.email bluesky@mizobata.com
-git config --global core.editor "code --wait": 主エディタをvscodeにする
-git config --global http.proxy http://proxy.fujixerox.com:8080
-git config --global init.defaultBranch master
-git config --list
-git init: ローカルレポジトリを作る
-git status: ファイルの状態を確認
-git add . : すべてのファイルのステージング
-git commit : ステージングしたファイルのコミット
-git commit -a ： 変更したファイル(新規ファイルを除く)をステージング&コミット
-git commit -m "メッセージ" : コミットコメントを付加してコミット
-git checkout -- . : ワークエリアのファイルを直前の状態(ステージングエリアのファイルの状態)に戻す (git restore .)
-git reset HEAD . : ステージングエリアのファイルを、最終コミットの状態に戻す
-git rm aaa.txt : aaa.txtのファイル削除と同時にgit管理からも外す
-git rm -r directory : directoryとそれ以下のファイルを削除すると同時にgit管理からも外す
-git log : コミット履歴  git log -p 差分情報も表示
-git branch ブランチ名： ブランチの作成
-git checkout -b ブランチ名： ブランチの作成＋ブランチへの移動
-git checkout ブランチ名： 操作対象をブランチに移行。git switch ブランチ名でも同じ。
-git branch : 現在のブランチリストを表示 (現在のブランチには＊がついている) 
-git diff：ワーキングエリアとステージングエリアのファイルの差分を表示
-git diff --cached：ステージングエリアと最終コミットとの差分を表示
-git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
-git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
+- git config --global user.name mizobata
+- git config --global user.email bluesky@mizobata.com
+- git config --global core.editor "code --wait": 主エディタをvscodeにする
+- git config --global http.proxy http://proxy.fujixerox.com:8080
+- git config --global init.defaultBranch master
+- git config --list
+- git init: ローカルレポジトリを作る
+- git status: ファイルの状態を確認
+- git add . : すべてのファイルのステージング
+- git commit : ステージングしたファイルのコミット
+- git commit -a ： 変更したファイル(新規ファイルを除く)をステージング&コミット
+- git commit -m "メッセージ" : コミットコメントを付加してコミット
+- git checkout -- . : ワークエリアのファイルを直前の状態(ステージングエリアのファイルの状態)に戻す (git restore .)
+- git reset HEAD . : ステージングエリアのファイルを、最終コミットの状態に戻す
+- git rm aaa.txt : aaa.txtのファイル削除と同時にgit管理からも外す
+- git rm -r directory : directoryとそれ以下のファイルを削除すると同時にgit管理からも外す
+- git log : コミット履歴  git log -p 差分情報も表示
+- git branch ブランチ名： ブランチの作成
+- git checkout -b ブランチ名： ブランチの作成＋ブランチへの移動
+- git checkout ブランチ名： 操作対象をブランチに移行。git switch ブランチ名でも同じ。
+- git branch : 現在のブランチリストを表示 (現在のブランチには＊がついている) 
+- git diff：ワーキングエリアとステージングエリアのファイルの差分を表示
+- git diff --cached：ステージングエリアと最終コミットとの差分を表示
+- git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
+- git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
+- git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
 
 ## .gitignore
 .gitignoreの記入例: https://github.com/github/gitignore
