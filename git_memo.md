@@ -1,4 +1,33 @@
 # Git学習メモ
+## 作業の流れ
+#### ローカルPC上の作業で閉じる場合
+1. git初期化および初期状態の保存(@master)： git init > git add . > git commit
+2. ブランチを作成して編集(@ブランチ) : git branch ブランチ名 > 作業 > git add . > git commit
+3. masterをマージ(@ブランチ) : git merge master  複数のブランチで並行作業している場合masterが開始時点と異なっている場合があるため。
+4. コンフリクトが起きたら解決し、コミット(@ブランチ) ： 編集 > git add . > git commit
+5. masterに移動しブランチの最終コミットをマージ: git checkout master > git merge ブランチ名
+#### GitHubで共同作業する場合その1(自分がプロジェクトを開始する場合)
+1. git初期化および初期状態の保存(@master)： git init > git add . > git commit
+2. GitHubでリポジトリを作成
+3. ローカルとGitHubをリンク: git remote add origin GitHubリポジトリのURL
+4. GitHubへ投稿: git push origin master
+5. ブランチを作成して編集(@ブランチ): git branch ブランチ名 > 作業 > git add . > git commit
+6. GitHubにブランチをPushしプルリクエストを作成(@GitHub)： git push origin ブランチ名 > GitHubでプルリクエストを作成
+7. GitHub上でコンフリクトが発生しているかを確認(@GitHub)
+8. コンフリクトが発生した場合、A. GitHub上で修正しコンフリクトマークを解除 または B. ローカルのmasterをアップデートしてブランチ上でコンフリクトを解消する
+8B-1. masterブランチに移動しGitHubのMasterをプル(@master)： git checkout master > git pull orgin master
+8B-2. 編集ブランチに移動しマージ、コンフリクト発生させる(@ブランチ): git checkout ブランチ名 > git merge master
+8B-3. vscodeでコンフリクトを解決し、コミット(@ブランチ): 編集 > git add . > git commit
+8B-4. GitHubへPushしプルリクエストを作成(@GitHub): git push origin ブランチ名 > GitHubでプルリクエストを作成
+8B-5. GitHub上でコンフリクトが発生しているかを確認(@GitHub)
+8B-6..GitHub上でマージの問題泣ければマージ実行
+9. masterに移動しGitHubからプルしコミット: git pull origin master > git add . > git commit
+10. ブランチに移動しmasterとマージしてコミット: git merge master
+#### GitHubで共同作業する場合その2(すでにGitHubで存在するプロジェクトに参加する場合)
+1. GitHubからクローン作製: git clone GitHubリポジトリのURL
+2. プロジェクトフォルダに入りGitHub名を定義: git remote add origin GitHubリポジトリのURL
+これ以降はGitHubで共同作業する場合その1の5以降と同じ。
+
 ## Gitコマンド
 - git config --global user.name mizobata
 - git config --global user.email bluesky@mizobata.com
