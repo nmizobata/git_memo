@@ -119,9 +119,9 @@ Add SSH keyを押す
 -- git merge master > git statusで、both modifiedと表示。 
 - @GitHub:自分のローカルブランチをプルリクエストした際、自分の変更箇所がGitHub Masterの変更箇所と同一だった場合に発生。
 -- GitHubのプルリクエストの分析結果に、This branch has conflicts that must be resolved.と表示。
-### 対処方法
-- ローカルMasterブランチに移動し、GitHub上のMasterをローカルのMasterにプル。
-- ローカル編集ブランチに移動。
+### 対処方法(GitHubでも対応可だが、ここではローカルにファイルを持ってきての対処方法を記述)
+- ローカルMasterブランチに移動し、GitHub上のMasterをローカルのMasterにプル。git pull origin master
+- ローカル編集ブランチに移動し、(エラーになるが)git merge masterを実行。するとコンフリクト情報が反映される。
 - コンフリクトが発生しているファイルを確認し、vscoldeで編集。その際、gitが付加したコンフリクトマークも消すこと。
 - 編集完了後、ステージング > コミット、でコンフリクトが解消した形でマージ完了。
 - GitHubへプッシュ。(GitHubで表示されていたConflictメッセージも解消されている)
