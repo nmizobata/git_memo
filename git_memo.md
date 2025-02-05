@@ -10,7 +10,7 @@
 1. git初期化および初期状態の保存(@master)： git init > git add . > git commit
 2. GitHubでリポジトリを作成
 3. ローカルとGitHubをリンク: git remote add origin GitHubリポジトリのURL
-4. GitHubへ投稿: git push origin master
+4. GitHubの中身を確認しGitHubへ投稿: git remote -v > git push origin master
 5. ブランチを作成して編集(@ブランチ): git branch ブランチ名 > 作業 > git add . > git commit
 6. GitHubにブランチをPushしプルリクエストを作成(@GitHub)： git push origin ブランチ名 > GitHubでプルリクエストを作成
 7. GitHub上でコンフリクトが発生しているかを確認(@GitHub)
@@ -59,6 +59,9 @@
 - git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
 - git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
 - git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
+  ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
+- git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
+- git branch -vv: 上流ブランチの確認
 
 ## git bash
 ### 設定
@@ -98,8 +101,11 @@
 - git reflogでHEAD@{番号} > git branch [新ブランチ] HEAD@{番号}。 [新ブランチ]が作成され復活。なおHEAD@{}はすぐに変わるのでreflogを確認したらすぐに実行すること。
 
 ## .gitignore
-
 .gitignoreの記入例: https://github.com/github/gitignore
+- ファイル、フォルダとも区別せずに名称を記述
+- すでに管理対象になっているファイルは、.gitignoreへの登録だけでなく、管理対象から外す作業が必要。
+-- git rm --cached aaa.txt : aaa.txtは残しつつgit管理からも外す
+-- git rm -r --cached directory : directoryとそれ以下のファイルを残しつつgit管理からも外す
 
 ## Github SSH Keyの設定
 ### SSH keyの生成
@@ -115,6 +121,14 @@ Add SSH keyを押す
 ### 設定の確認
 > ssh -T git@github.com
 パスフレーズを入力
+
+## 現在の編集の一時退避～別作業実施～元の作業に戻る
+現在の作業をいったん中止(変更部分はいったん削除)、別の作業を行ったうえで、元の作業に戻るときにはスタッシュ機能を使用する。
+- git stash : 一時退避
+- git stash list : 一時退避した内容のリスト
+- git stash pop : 一時退避解除
+一時退避中にブランチを作成/移動した場合は、編集中のブランチの移動と同じ動作になる。
+退避した作業の変更部分と、退避中に行った変更部分とでコンフリクトが発生する場合は、通常のコンフリクトの対処と同じように対処する。
 
 ## 他者のGithubリポジトリのコピー取得
 公開されている他者のリモートリポジトリを開く
