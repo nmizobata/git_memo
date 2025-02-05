@@ -60,15 +60,42 @@
 - git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
 - git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
 
+## git bash
+### 設定
+- 日本語文字化けの場合Options > Text > Font(Terminal,10pt), Locale(ja_JP), Character set(UTF-8)
+- 設定が終わったらgit bashを再起動
+### ビューワー操作
+- q: end
+- j or e: 1行上
+- k or y: 1行下
+- f: 1ページ進む
+- b: 1ページ戻る
+
 ## 戻したいときのコマンド
 [参考1](https://qiita.com/rch1223/items/9377446c3d010d91399b) [参考2](https://git-scm.com/book/ja/v2/Git-のさまざまなツール-リセットコマンド詳説#_チェックアウトとの違い)
 
-編集済(未ステージング)→前回コミット:  git checkout [ファイル名] / git checkout .  (すべて)
-編集済(ステージング済)→編集済(未ステージング): git reset [ファイル名] / git reset (すべて)
-編集済(ステージング済)→前回コミット: git checkout HEAD -- [ファイル名] / git reset --hard HEAD
-任意→指定コミット: git logでコミットidを確認後git reset --hard [コミットid] (すべて)
-特定ファイルのみ指定コミット: git checkout [コミットid] [ファイルパス]
-ブランチ削除後の指定コミット復活: git reflogでHEAD@{番号}確認後、git branch [新ブランチ] HEAD@{番号}。 [新ブランチ]が作成され復活。なおHEAD@{}はすぐに変わるのでreflogを確認したらすぐに実行すること。
+### コミット取り消し
+- git logで戻したいコミットのハッシュ値を確認。ハッシュ値はマウスでコピペするか、頭4ケタを指定する。
+#### ステージングに戻す
+- コミット自体をなかったものにする: git reset --soft [戻り先のハッシュ番号]
+#### 未ステージングに戻す
+- コミット自体をなかったものにする: git reset [戻り先のハッシュ番号] / git reset --mixed [戻り先のハッシュ番号]
+- コミット中止のコミットを新規作成: git revert [取り消しコミットのハッシュ番号]
+  (コミット中止のコミットも中止できる)
+#### 編集も取り消し (直前コミット状態に戻す)
+- コミット自体をなかったものにする: git reset --hard [直前コミットハッシュ番号]
+### ステージング取り消し
+#### 単純に未ステージングに戻す(編集は残す)
+- 特定ファイル: git reset [ファイル名] または git restore --staged [ファイル名]
+- すべて: git reset / git reset --mixed または git restore --staged .
+#### 編集も取り消し (直前コミット状態に戻す)
+- 特定ファイル: git reset --hard ファイル名 / git checkout ファイル名
+- すべて: git reset --hard / git checkout .
+### 編集取り消し (任意のコミット状態に戻す)
+- 特定ファイルのみ: git checkout [コミットid] [ファイルパス]
+- すべてのファイル: git reset --hard [戻り先のハッシュ番号] 
+### 削除したブランチの復活 (指定コミット状態を指定したブランチに再生)
+- git reflogでHEAD@{番号} > git branch [新ブランチ] HEAD@{番号}。 [新ブランチ]が作成され復活。なおHEAD@{}はすぐに変わるのでreflogを確認したらすぐに実行すること。
 
 ## .gitignore
 
@@ -133,7 +160,7 @@ Add SSH keyを押す
 - git fetch originでフェッチだけを行う
 - git checkout <ブランチ>
 4. リモートリポジトリでマージが行われたら、ローカルリポジトリへプル(＝フェッチ＋マージ)を行う。(自分が編集中であってもbranchで行っておりmasterにプルしても影響はないはず)
-- masterブランチに切り替える。(ブランチを切り替えずにプルを行うと今のブランチにマスターブランチがマージされてしまうので注意)
+- masterブランチに切り替える。(ブランチを切り替えずにプルを行うと今のブランチにマスターブランチがマージされてしまうので注意)　
    git checkout master (ローカルのmasterブランチに移動するという意味。作業中のブランチがある場合はコミットしておく必要がある)
    git pull origin master  (originのmasterブランチを取り込む、という意味)
 どうしても、リポジトリはともかく自分のワークツリーに反映したくないときはフェッチだけ行う。git fetch origin
