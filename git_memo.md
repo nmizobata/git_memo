@@ -24,9 +24,9 @@ git branch : 現在のブランチリストを表示 (現在のブランチに�
 git diff：ワーキングエリアとステージングエリアのファイルの差分を表示
 git diff --cached：ステージングエリアと最終コミットとの差分を表示
 git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
-<<<<<<< HEAD
 git branch -d [ブランチ名]： ブランチの削除(マージ済)
 git branch -D [ブランチ名]：ブランチの強制削除(未マージのものも含む)
+git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
 
 ## 戻したいときのコマンド
 [参考1](https://qiita.com/rch1223/items/9377446c3d010d91399b) [参考2](https://git-scm.com/book/ja/v2/Git-のさまざまなツール-リセットコマンド詳説#_チェックアウトとの違い)
@@ -37,9 +37,6 @@ git branch -D [ブランチ名]：ブランチの強制削除(未マージのも
 任意→指定コミット: git logでコミットidを確認後git reset --hard [コミットid] (すべて)
 特定ファイルのみ指定コミット: git checkout [コミットid] [ファイルパス]
 ブランチ削除後の指定コミット復活: git reflogでHEAD@{番号}確認後、git branch [新ブランチ] HEAD@{番号}。 [新ブランチ]が作成され復活。なおHEAD@{}はすぐに変わるのでreflogを確認したらすぐに実行すること。
-=======
-git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
->>>>>>> 47ba65fd004617508b036c0caa680b02006ae529
 
 ## .gitignore
 
