@@ -1,4 +1,8 @@
 # Git学習メモ
+
+疑問
+- GitHubへプルリクエスト上げた後、解決する前に次のプルリクエストを上げた場合、どうなるか？ 前のプルリクエストは削除されて、新しいプルリクエストが発行される？ 前のプルリクエストがあるため新しいプルリクエストはリジェクトされる？
+
 ## 作業の流れ
 #### ローカルPC上の作業で閉じる場合
 1. git初期化および初期状態の保存(@master)： git init > git add . > git commit
@@ -58,7 +62,7 @@
 - git diff --cached：ステージングエリアと最終コミットとの差分を表示
 - git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
 - git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
-- git push origin ローカルブランチ名： github(origin)に指定したブランチをアップする
+- git push origin ローカルブランチ名： github(origin)に指定したローカルブランチをアップする(どこのブランチにいても他のブランチを指定できる)
   ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
 - git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
 - git branch -vv: 上流ブランチの確認
@@ -205,3 +209,38 @@ Add SSH keyを押す
 - stars :>= 10000 でStarが10000個以上のリポジトリ。
 - starts:>=10000 language:pythonでpython言語の検索。
 - ReadMEファイルにおけるMarkDownの記法。http://guides.github.com/features/mastering-markdown/
+
+## Gitフロー / Githubフロー
+### Gitフロー
+- main(master)ブランチ
+正式版、リリース済のブランチ。
+- developブランチ
+開発作業の本線のブランチ。動作可能な最新のコードを集中させる。
+- featureブランチ
+developブランチの支線。各機能ごとに作成され、完成したらdevelopブランチにマージされ、このブランチを削除する。
+- releaseブランチ
+リリース最終準備のブランチ。リリースの準備が整ったらmainブランチにマージ。バグフィックス、ドキュメントの修正、バージョン番号の振り直しなどを実施。developブランチにも修正を反映する。
+- hotfixブランチ
+リリース後の不具合対応のブランチ。完成したらmainブランチにマージされる。
+### Githubフロー
+- mainブランチ
+デプロイ可能な状態にしておく。
+- その他のブランチ
+ローカルでコミットしたものを定期的にリモートへプッシュ。ブランチをマージする段階になったらプルリクエストを作成。マージが完了したらプルリクエストはクローズ。
+
+## Githubの機能
+### default branch
+main/masterブランチを隠蔽し他のメンバーがデフォルトとして使用するブランチを指定する。
+setting > general > default branch
+### issue
+Todo管理。
+
+## GitHub Pages
+### 概要
+GitHubリポジトリにWeb部品を格納すれば、そのままWebページになる機能。freeアカウントの場合はPublicリポジトリにする必要あり。
+https://{アカウント名}.github.io/{リポジトリ名} リポジトリ名＝アカウント名の場合は、https://{アカウント名}.github.io
+index.mdがホームになる。
+### 準備
+- Setting > Code and automationのPages設定 > Build and developmentのSourceでどのブランチのどのパスからWebページを生成するかを設定。
+- Webページの生成に1分ほど、メイン画面のステイタスで完了を確認したらアクセス。
+
