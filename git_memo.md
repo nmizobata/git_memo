@@ -53,8 +53,8 @@
 - git rm -r directory : directoryとそれ以下のファイルを削除すると同時にgit管理からも外す
 - git log : コミット履歴  git log -p 差分情報も表示
 - git branch ブランチ名： ブランチの作成
-- git checkout -b ブランチ名： ブランチの作成＋ブランチへの移動
 - git checkout ブランチ名： 操作対象をブランチに移行。git switch ブランチ名でも同じ。
+- git checkout -b ブランチ名： 「git branch ブランチ名」 ＋ 「git checkout ブランチ名」
 - git branch : 現在のブランチリストを表示 (現在のブランチには＊がついている) 
 - git branch -d [ブランチ名]： ブランチの削除(マージ済)
 - git branch -D [ブランチ名]：ブランチの強制削除(未マージのものも含む)
@@ -66,11 +66,19 @@
   ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
 - git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
 - git branch -vv: 上流ブランチの確認
+- git ls-files: gitで管理しているファイルのリスト
+- git status -ignored: gitの管理から外されているファイルのリスト
+
 
 ## git bash
 ### 設定
 - 日本語文字化けの場合Options > Text > Font(Terminal,10pt), Locale(ja_JP), Character set(UTF-8)
 - 設定が終わったらgit bashを再起動
+- 上記でgit ls-filesで文字化けする場合は、git bashで
+```
+$ git config --local core.quotepath false
+$ git config --global core.quotepath false
+```
 ### ビューワー操作
 - q: end
 - j or e: 1行上
@@ -109,7 +117,8 @@
 - ファイル、フォルダとも区別せずに名称を記述
 - すでに管理対象になっているファイルは、.gitignoreへの登録だけでなく、管理対象から外す作業が必要。
 -- git rm --cached aaa.txt : aaa.txtは残しつつgit管理からも外す
--- git rm -r --cached directory : directoryとそれ以下のファイルを残しつつgit管理からも外す
+-- git rm -r --cached directory* : directoryとそれ以下のファイルを残しつつgit管理からも外す
+* directryは、フォルダ名だけでなくGitのルートからのパスを記述する。
 
 ## Github SSH Keyの設定
 ### SSH keyの生成
@@ -151,7 +160,7 @@ Add SSH keyを押す
 
 ## ブランチの運用
 - masterブランチは「安定したもの」「確定したもの」に限定すること。
-- ブランチ名には日本語も使用できる。
+- ブランチ名には日本語も使用できる。また"feature/picture"など記号も使用可能。
 - 改変する場合は必ず作業用のブランチを新たに作って行い、作業が完了(動作が安定していることも確認)したらmasterにマージすること。
 - 常にどのブランチに対して操作を行うのか、を意識する。操作対象のブランチは git checkout ブランチ名で指定する。
 - ブランチを作らずに編集を始めてしまっても、ステージングエリアに登録する前なら、後付けてbranchを作成、移動することができる。
