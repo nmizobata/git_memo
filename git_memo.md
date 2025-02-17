@@ -67,6 +67,7 @@
   ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
 - git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
 - git branch -vv: 上流ブランチの確認
+- git log master origin/master: ローカルとリモートのコミットの状況比較
 - git ls-files: gitで管理しているファイルのリスト
 - git status -ignored: gitの管理から外されているファイルのリスト
 
