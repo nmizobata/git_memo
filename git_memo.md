@@ -25,17 +25,21 @@
 8B-3. vscodeでコンフリクトを解決し、コミット(@ブランチ): 編集 > git add . > git commit
 8B-4. GitHubへPushしプルリクエストを作成(@GitHub): git push origin ブランチ名 > GitHubでプルリクエストを作成
 8B-5. GitHub上でコンフリクトが発生しているかを確認(@GitHub)
-8B-6..GitHub上でマージの問題泣ければマージ実行
+8B-6..GitHub上でマージの問題なければマージ実行
 9. masterに移動しGitHubからプルしコミット: git pull origin master > git add . > git commit
 10. ブランチに移動しmasterとマージしてコミット: git merge master
 #### GitHubで共同作業する場合その2(すでにGitHubで存在するプロジェクトに参加する場合)
 1. GitHubからクローン作製: git clone GitHubリポジトリのURL
 2. プロジェクトフォルダに入りGitHub名を定義: git remote add origin GitHubリポジトリのURL
 これ以降はGitHubで共同作業する場合その1の5以降と同じ。
-
-疑問。Masterブランチで間違って編集した場合、後付けでブランチへ移動して作業を続けられるか。(Masterブランチでの編集内容は保存されるか？)
+#### 他者のGithubリポジトリをコピー取得
+1. 他者のリモートリポジトリを開き、右上のForkで自分のGithubアカウントにリポジトリをコピーする。
+2. 自分のGithubアカウントにコピーしたリポジトリをローカルリポジトリにクローンする。 git clone GitHubリポジトリのURL
+3. プロジェクトフォルダに入りGitHub名を定義: git remote add origin GitHubリポジトリのURL
+これ以降はGitHubで共同作業する場合その1の5以降と同じ。
 
 ## Gitコマンド
+### Git初期設定
 - git config --global user.name mizobata
 - git config --global user.email bluesky@mizobata.com
 - git config --global core.editor "code --wait": 主エディタをvscodeにする
@@ -43,36 +47,42 @@
 - git config --global init.defaultBranch master
 - git config --list
 - git init: ローカルレポジトリを作る
-- git status: ファイルの状態を確認
+### ブランチ操作
+- git branch ブランチ名： ブランチの作成
+- git checkout ブランチ名： 操作対象をブランチに移行。git switch ブランチ名でも同じ。
+- git checkout -b ブランチ名： 「git branch ブランチ名」 + 「git checkout ブランチ名」
+- git branch : 現在のブランチリストを表示 (現在のブランチには＊がついている) 
+- git branch -d [ブランチ名]: ブランチの削除(マージ済)
+- git branch -D [ブランチ名]：ブランチの強制削除(未マージのものも含む)
+### コミット
 - git add . : すべてのファイルのステージング
 - git add -f フォルダ : (新規追加等で)アントラックになっているフォルダを追加
 - git commit : ステージングしたファイルのコミット
-- git commit -a ： 変更したファイル(新規ファイルを除く)をステージング&コミット
+- git commit -a : アントラックファイルを除いた変更ファイルをステージング&コミット
 - git commit -m "メッセージ" : コミットコメントを付加してコミット
+### リストア
 - git checkout -- . : ワークエリアのファイルを直前の状態(ステージングエリアのファイルの状態)に戻す (git restore .)
 - git reset HEAD . : ステージングエリアのファイルを、最終コミットの状態に戻す
+### リポジトリからの削除
 - git rm aaa.txt : aaa.txtのファイル削除と同時にgit管理からも外す
 - git rm -r directory : directoryとそれ以下のファイルを削除すると同時にgit管理からも外す
+### 情報確認
+- git status: ワーキングエリアの状態を確認
 - git log : コミット履歴  git log -p 差分情報も表示
-- git branch ブランチ名： ブランチの作成
-- git checkout ブランチ名： 操作対象をブランチに移行。git switch ブランチ名でも同じ。
-- git checkout -b ブランチ名： 「git branch ブランチ名」 ＋ 「git checkout ブランチ名」
-- git branch : 現在のブランチリストを表示 (現在のブランチには＊がついている) 
-- git branch -d [ブランチ名]： ブランチの削除(マージ済)
-- git branch -D [ブランチ名]：ブランチの強制削除(未マージのものも含む)
-- git diff：ワーキングエリアとステージングエリアのファイルの差分を表示
-- git diff --cached：ステージングエリアと最終コミットとの差分を表示
-- git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
+- git log master origin/master: ローカルとリモートのコミットの状況比較
+- git ls-files: gitで管理しているファイルのリスト
+- git status -ignored: gitの管理から外されているファイルのリスト
+### 差分確認
+- git diff : ワーキングエリアとステージングエリアのファイルの差分を表示
+- git diff --cached : ステージングエリアと最終コミットとの差分を表示
+- git diff master : (ブランチにいるとき)master(最終コミット)との差分を確認
+### リモートリポジトリ操作
 - git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
 - git remote set-url origin (変更後のリポジトリURL) : 新しいgithubリポジトリのURLをoriginに割り当てる
 - git push origin ローカルブランチ名： github(origin)に指定したローカルブランチをアップする(どこのブランチにいても他のブランチを指定できる)
   ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
-- git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
+- git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション: origin/masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
 - git branch -vv: 上流ブランチの確認
-- git log master origin/master: ローカルとリモートのコミットの状況比較
-- git ls-files: gitで管理しているファイルのリスト
-- git status -ignored: gitの管理から外されているファイルのリスト
-
 
 ## git bash
 ### 設定
@@ -120,8 +130,8 @@ $ git config --global core.quotepath false
 .gitignoreの記入例: https://github.com/github/gitignore
 - ファイル、フォルダとも区別せずに名称を記述
 - すでに管理対象になっているファイルは、.gitignoreへの登録だけでなく、管理対象から外す作業が必要。
--- git rm --cached aaa.txt : aaa.txtは残しつつgit管理からも外す
--- git rm -r --cached directory* : directoryとそれ以下のファイルを残しつつgit管理からも外す
+  - git rm --cached aaa.txt : aaa.txtは残しつつgit管理からも外す
+  - git rm -r --cached directory* : directoryとそれ以下のファイルを残しつつgit管理からも外す
 * directryは、フォルダ名だけでなくGitのルートからのパスを記述する。
 
 ## Github SSH Keyの設定
@@ -146,16 +156,6 @@ Add SSH keyを押す
 - git stash pop : 一時退避解除
 一時退避中にブランチを作成/移動した場合は、編集中のブランチの移動と同じ動作になる。
 退避した作業の変更部分と、退避中に行った変更部分とでコンフリクトが発生する場合は、通常のコンフリクトの対処と同じように対処する。
-
-## 他者のGithubリポジトリのコピー取得
-公開されている他者のリモートリポジトリを開く
-右上のForkで自分のGithubアカウントにリポジトリをコピーする。
-自分のGithubアカウントにコピーしたリポジトリをローカルリポジトリにクローンする。
-1. 適当にフォルダを作成
-2. フォルダの中で右クリック > git bashを起動
-3. > git clone https:/(URL)を実行
-4. git remote -v : リポジトリ名(origin) とURLを表示
-   (一つのローカルリポジトリに複数のリモートリポジトリを設定可能なため、名前を付ける)
    
 ## VSCodeの起動
 開いているフォルダで右クリック VSCodeを起動
