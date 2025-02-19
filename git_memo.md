@@ -63,6 +63,7 @@
 - git diff --cached：ステージングエリアと最終コミットとの差分を表示
 - git diff master： (ブランチにいるとき)master(最終コミット)との差分を確認
 - git remote add origin https:\\(githubリポジトリURL) : gitにhubリポジトリをリンクする
+- git remote set-url origin (変更後のリポジトリURL) : 新しいgithubリポジトリのURLをoriginに割り当てる
 - git push origin ローカルブランチ名： github(origin)に指定したローカルブランチをアップする(どこのブランチにいても他のブランチを指定できる)
   ローカルとリモートのブランチ名が異なる場合は： git push origin ローカルブランチ名:リモートブランチ名
 - git push -u origin master: ローカルのmasterブランチで今後pushする場合はgit pushで済ませられるようになる。(-uオプション＝origin:masterを「上流ブランチ」設定。上流ブランチは、各ブランチごとに設定する)
@@ -172,8 +173,20 @@ Add SSH keyを押す
 - (コミットした後に)masterブランチの状態に戻したい場合は、masterに移動しブランチを削除したうえでまた新しくブランチを作成する？
 - ブランチで作業中に、他のブランチのmasterへのマージが行われた場合は、作業中のブランチにmasterの最新状態を取り込んでおく。
 ### 共同作業をしている場合
-- プルリクエストを行い、承認を得たのちブランチをmasterにマージする。
-1. ローカルでブランチをコミット
+#### 考え方
+- Githubの統合ライン(master や development)は自分の知らないところで「常に更新されている」との意識を持っておく
+- 自分の作業を統合ラインに反映させるためには、自分のブランチをGithubへpushし、プルリクエストでマージを要求。承認されたらマージを実施する。
+#### 手順
+0. 自分の作業ブランチとmaster(=githubのmaster)との比較、差異を確認する。
+   1. ローカルのmasterにリモートmasterをプルする。
+  - git pull origin master
+   2. 作業ブランチとmasterの差異を確認する。
+  - git diff master
+   3. マージしても影響がないのであれば、今の作業をスタッシュ。masterからのブランチの出発点をmasterの最新にしておいたほうが後の作業が楽。
+  - git stash -u (新規作成ファイルも含ませるために-uを使う)
+  - git merge master (現行の)
+
+1. 自分の作業が終了したら、作業ブランチをコミット
 2. リモートリポジトリへpush(リモートで同じ名前(or違う名前に指定も可)
 	git push origin <ブランチ名>
 3. ブラウザでリポジトリを開きpull request作成を行う。
